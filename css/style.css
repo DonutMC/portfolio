@@ -1,0 +1,1817 @@
+/* ============================================================
+   Portfolio — Dark theme
+   ============================================================ */
+
+:root {
+  --bg: #0b0d12;
+  --bg-elevated: #12151c;
+  --bg-card: #151922;
+  --border: #232833;
+  --border-hover: #34404f;
+  --text: #e8eaee;
+  --text-dim: #9aa3b2;
+  --text-faint: #626c7d;
+  --accent: #6ee7c4;
+  --accent-strong: #3ddc9c;
+  --accent-soft: rgba(110, 231, 196, 0.12);
+  --accent-2: #7c9cff;
+  --danger: #ff8a8a;
+  --radius: 10px;
+  --max-width: 1120px;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Space Grotesk", var(--font-sans);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(600px circle at 15% -10%, rgba(110, 231, 196, 0.08), transparent 40%),
+    radial-gradient(700px circle at 100% 10%, rgba(124, 156, 255, 0.07), transparent 45%);
+  pointer-events: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 0.5em;
+}
+
+p {
+  margin: 0 0 1em;
+  color: var(--text-dim);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- Nav ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(11, 13, 18, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.nav-logo span {
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+  background: var(--bg-elevated);
+}
+
+.nav-links a.active {
+  color: var(--bg);
+  background: var(--accent);
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #05130f;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  background: var(--accent-strong);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-ghost:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-elevated);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  padding: 96px 0 64px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.hero-eyebrow::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  max-width: 16ch;
+  letter-spacing: -0.02em;
+}
+
+.hero-lead {
+  font-size: 1.15rem;
+  max-width: 60ch;
+  color: var(--text-dim);
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Immersive hero (Home) ---------- */
+/* Plain decorative header banner — a slim strip with nothing else sitting
+   over it, just a single static full-bleed image (no tiling, no motion).
+   Sized to the image's own aspect ratio (2540:400) with no max-height cap —
+   a cap would make the box proportionally *wider* than the image on wide
+   viewports, and object-fit: contain would then letterbox the sides to
+   avoid cropping, breaking the edge-to-edge fill. Left uncapped, width and
+   height always grow together in lockstep, so it's always both fully
+   visible and full-width. min-height only ever makes the box proportionally
+   *taller*, which contain handles by letterboxing top/bottom instead —
+   width still reaches full edge to edge, so that's safe to keep for a
+   sane floor on narrow phones. The strip's own background matches the page
+   background (both var(--bg), which is also this image's own flat
+   background color), so any such letterbox is invisible either way. */
+
+.hero-banner-strip {
+  aspect-ratio: 2540 / 400;
+  min-height: 110px;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.hero-banner-strip-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: brightness(0.85) saturate(1.05);
+}
+
+/* Wider than the normal 1120px content container so the ring carousel has
+   enough room either side of its center card for the ±1 and ±2 peeking
+   neighbors to render at full size without ever being clipped — see the
+   width math in initProjectCarousel (js/main.js): the ring only ever needs
+   less width than its container actually has, at any scale, so as long as
+   this row stays wide there's nothing left to clip. Compound selector to
+   beat .section's own border-top (a plain top border under the banner's own
+   border-bottom would double up). */
+/* Grid (not flex) specifically so the identity block can be vertically
+   centered against just the carousel box's own row — excluding the head
+   box's row above it — which a single flex row's align-items can't express
+   (it only ever aligns against a sibling's *whole* height). Row 1 is
+   whatever height the head box needs, row 2 is whatever height the
+   carousel box ends up at (its own height is set by JS depending on scale)
+   — .hero-split-identity is placed in row 2 only and centered within it. */
+.section.hero-identity-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 64px;
+  row-gap: 0;
+  max-width: 1920px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border-top: none;
+}
+
+/* Unwraps so hero-projects-head and hero-projects-box become direct grid
+   items of .hero-identity-row (placeable in their own rows below) instead
+   of being sized/positioned as one combined block. */
+.hero-split-projects {
+  display: contents;
+}
+
+.hero-split-identity {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  max-width: 460px;
+}
+
+.hero-photo {
+  width: 168px;
+  height: 168px;
+  border-radius: 26px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #05130f;
+  border: 3px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-identity-text .hero-eyebrow {
+  margin-bottom: 10px;
+}
+
+.hero-identity-text h1 {
+  font-size: clamp(2.1rem, 3.4vw, 3rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.hero-identity-text .hero-lead {
+  margin: 0;
+  font-size: 1.05rem;
+  max-width: 36ch;
+}
+
+/* Compound selector for specificity — otherwise the later, single-class
+   .section-head rule (margin-bottom: 36px) would win the cascade tie. No
+   gap between this row and the big box below: the head box's bottom edge
+   (flat, borderless — see below) sits flush against the big box's top
+   border, so the two read as one connected shape rather than two floating
+   cards. */
+.section-head.hero-projects-head {
+  grid-column: 2;
+  grid-row: 1;
+  margin-bottom: 0;
+  align-items: center;
+}
+
+/* Small standard-radius card around just the kicker+heading — the "All
+   projects →" link sits outside it, as a plain link floating beside the
+   box rather than being enclosed by it. Flat, borderless bottom so it
+   merges directly into the big box's top edge instead of leaving a gap or
+   a double border line — and pulled down 1px (its own background is the
+   same var(--bg-card) as the box below) to paint over that box's 1px top
+   border for the width of the tab, so no seam line shows where they meet. */
+.hero-projects-head-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 10px 22px;
+  margin-bottom: -1px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-projects-head-box .section-kicker {
+  margin-bottom: 6px;
+}
+
+.hero-projects-head-box h2 {
+  margin: 0;
+}
+
+/* The big showcase card around the carousel itself — a noticeably larger
+   radius than the standard card style marks it as the section's centerpiece.
+   No overflow:hidden here: the ring carousel already keeps its peeking
+   cards within its own bounds at any width (see initProjectCarousel), and
+   the stack-indicator button deliberately pokes a little above the ring, so
+   clipping would just cut that back off — the padding alone gives it a
+   clean framed look without needing to clip anything. Positioned so the
+   prev/next arrow buttons (siblings of .project-spotlight, added in
+   initProjectCarousel) can anchor to its edges via position:absolute. */
+.hero-projects-box {
+  grid-column: 2;
+  grid-row: 2;
+  min-width: 0;
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  /* Square where the head box's tab sits flush against it, so the two
+     don't show a rounded gap peeking through at the seam. */
+  border-top-left-radius: 0;
+  padding: 22px 32px 18px;
+}
+
+.ring-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 8;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.ring-nav-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.ring-nav-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--bg-elevated);
+  transform: translateY(-50%) scale(1.06);
+}
+
+.ring-nav-btn.prev {
+  left: 10px;
+}
+
+.ring-nav-btn.next {
+  right: 10px;
+}
+
+@media (max-width: 860px) {
+  .ring-nav-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .ring-nav-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 860px) {
+  /* Below this width the ring itself collapses to a single centered card
+     (see the other ≤860px rule further down), so there's no tall carousel
+     box left to center the identity block against — a plain column stack
+     in DOM order (identity, then head, then box) reads better here than
+     the desktop grid. */
+  .section.hero-identity-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .hero-split-identity {
+    max-width: none;
+    align-self: auto;
+  }
+
+  .section-head.hero-projects-head,
+  .hero-projects-box {
+    width: 100%;
+  }
+
+  .hero-projects-box {
+    padding: 24px 20px 20px;
+  }
+
+  .hero-projects-head-box {
+    padding: 12px 18px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-split-identity {
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+/* ---------- Project ring carousel (Home) ---------- */
+/* One permanent slot per project (no content-swapping, ever) — each tick just
+   moves every slot one step around a circular position track via inline
+   style (see initProjectCarousel in js/main.js), so this works the same way
+   whether there are 3 projects or 20: only the ones within 2 steps of center
+   are visible (center sharp+large, 1 step out clear, 2 steps out blurred and
+   peeking through the gaps), anything further is faded to fully invisible
+   rather than removed, so it can fade back in as it approaches. Since a
+   project's own slot never gets recreated, a project with no image yet
+   (just the "Add project image" placeholder) still reads as a card at the
+   blurred 2-steps-out distance instead of vanishing into the page
+   background. */
+
+.project-spotlight {
+  position: relative;
+  height: 500px;
+  margin-top: 4px;
+}
+
+.ring-card-slot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease, filter 0.6s ease;
+}
+
+.ring-card-slot .project-card {
+  height: 100%;
+}
+
+.project-spotlight .stack-indicator {
+  top: -18px;
+  left: auto;
+  right: 4px;
+  z-index: 6;
+}
+
+.project-spotlight .stack-indicator:hover {
+  transform: scale(1.08);
+}
+
+@media (max-width: 860px) {
+  .project-spotlight {
+    height: auto;
+  }
+  .ring-card-slot {
+    display: none;
+  }
+  .ring-card-slot[data-role="center"] {
+    display: block;
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 0 auto;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+  .project-spotlight .stack-indicator {
+    top: -14px;
+  }
+}
+
+/* ---------- Section headings ---------- */
+
+.section {
+  padding: 64px 0;
+  border-top: 1px solid var(--border);
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.section-head h2 {
+  font-size: 1.7rem;
+}
+
+.section-kicker {
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* ---------- Areas / skills grid ---------- */
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.skill-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.skill-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.skill-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+
+.skill-card p {
+  margin: 0;
+  font-size: 0.94rem;
+}
+
+/* ---------- Project cards ---------- */
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 22px;
+}
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.project-card-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, var(--bg-elevated), var(--bg));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-faint);
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.project-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Some project thumbnails (e.g. a YouTube video thumbnail with its own
+   title/view-count bar baked in) lose important content if cropped to fill
+   the 16:9 box — those set `imageFit: "contain"` in js/data.js instead of
+   cropping, so the full image always shows, letterboxed against this same
+   background gradient. */
+.project-card-media img.fit-contain {
+  object-fit: contain;
+}
+
+/* Overlapping mini fan for cards with 2+ images — same idea as the photo/
+   logo stacks on the detail page, scaled down for a wide 16:9 card. Static
+   (no rotation/timer): a card is a small, secondary context, not worth the
+   extra motion the detail page's stack uses. */
+.project-card-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.project-card-stack .stack-tile {
+  position: absolute;
+  width: 62%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 3px solid var(--bg-elevated);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.45);
+  transition: transform 0.2s ease;
+}
+
+.project-card-stack .stack-tile.pos-1 { top: 8%; left: 4%; transform: rotate(-6deg); z-index: 3; }
+.project-card-stack .stack-tile.pos-2 { top: 26%; left: 32%; transform: rotate(5deg); z-index: 2; }
+.project-card-stack .stack-tile.pos-3 { top: 16%; left: 18%; transform: rotate(-2deg); z-index: 1; }
+
+.project-card:hover .project-card-stack .stack-tile.pos-1 { transform: rotate(-9deg) translate(-3px, -3px); }
+.project-card:hover .project-card-stack .stack-tile.pos-2 { transform: rotate(8deg) translate(3px, -2px); }
+.project-card:hover .project-card-stack .stack-tile.pos-3 { transform: rotate(-4deg) translate(-2px, 2px); }
+
+.project-card-logo {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 44px;
+  height: 44px;
+  padding: 5px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.project-card-media .project-card-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 2-3 logos: a small cascading stack in the same corner the single-logo
+   badge occupies — each chip sits a little further down and at a slightly
+   sharper angle than the last, front to back. The vertical gap between
+   chips (32px on a 40px chip) is deliberately most of a chip's own height,
+   so at most ~16% of any one chip's area sits under the one in front of it
+   — comfortably past the "80% of each icon visible" bar. */
+.project-card-logo-stack {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 60px;
+  height: 122px;
+}
+
+.project-card-logo-chip {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-card-logo-chip img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.project-card-logo-stack .project-card-logo-chip:nth-child(1) { top: 0;    right: 10px; transform: rotate(-5deg); z-index: 3; }
+.project-card-logo-stack .project-card-logo-chip:nth-child(2) { top: 36px; right: 0;    transform: rotate(6deg);  z-index: 2; }
+.project-card-logo-stack .project-card-logo-chip:nth-child(3) { top: 72px; right: 12px; transform: rotate(-7deg); z-index: 1; }
+
+.project-card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.project-card-body h3 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.project-year {
+  color: var(--text-faint);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.project-card-body p {
+  font-size: 0.92rem;
+  margin: 0;
+  flex: 1;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* Color-coded skill tags — each skill name hashes to one of these,
+   consistently, wherever it appears (cards, filters, detail page). */
+.tag-color-mint   { background: rgba(110, 231, 196, 0.14); color: #6ee7c4; }
+.tag-color-blue   { background: rgba(124, 156, 255, 0.14); color: #93aeff; }
+.tag-color-purple { background: rgba(196, 141, 255, 0.14); color: #c48dff; }
+.tag-color-amber  { background: rgba(255, 197, 92, 0.14);  color: #ffc55c; }
+.tag-color-rose   { background: rgba(255, 138, 179, 0.14); color: #ff8ab3; }
+.tag-color-cyan   { background: rgba(96, 216, 255, 0.14);  color: #60d8ff; }
+.tag-color-lime   { background: rgba(180, 230, 100, 0.14); color: #b4e664; }
+.tag-color-orange { background: rgba(255, 154, 92, 0.14);  color: #ff9a5c; }
+
+/* ---------- Misc build gallery ---------- */
+
+.misc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.misc-tile {
+  margin: 0;
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  aspect-ratio: 4 / 3;
+  background: var(--bg-card);
+}
+
+.misc-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  cursor: zoom-in;
+}
+
+.misc-tile:hover img {
+  transform: scale(1.05);
+}
+
+.misc-tile figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px 12px 10px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+  color: var(--text);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+/* ---------- Filters ---------- */
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.filter-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--text);
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #05130f;
+}
+
+/* ---------- Project detail page ---------- */
+
+.project-hero {
+  padding: 56px 0 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-faint);
+  margin-bottom: 24px;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+}
+
+.project-hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  max-width: 22ch;
+}
+
+/* ---- Feature section: image stack / copy / tags+logo ---- */
+
+.project-feature {
+  padding: 56px 0 24px;
+}
+
+.project-feature-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1.2fr 0.9fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Left column — overlapping photo stack */
+
+.image-stack {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+}
+
+.image-stack .stack-photo {
+  position: absolute;
+  /* Kept comfortably inside the stack's own box (see pos-N left offsets
+     below) — at 92% combined with a ~22% left offset, the rightmost photos
+     were overflowing past 100% of the box even before rotation, which is
+     what was spilling into the copy column's text. */
+  width: 84%;
+  /* No fixed aspect-ratio here on purpose — each photo renders at its own
+     natural proportions (wide or tall) instead of being letterboxed inside
+     a uniform box, so there's no empty void around it. */
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  border: 4px solid var(--bg-elevated);
+  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.5);
+  cursor: zoom-in;
+  transition: top 0.6s cubic-bezier(0.4, 0, 0.2, 1), left 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
+}
+
+.image-stack .stack-photo.empty {
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-faint);
+  font-size: 0.8rem;
+  border: 1px dashed var(--border-hover);
+  background: var(--bg-card);
+  text-align: center;
+  padding: 12px;
+  cursor: default;
+}
+
+/* Position in the fan — assigned via class rather than DOM order, so JS can
+   rotate which photo sits front/mid/back without moving elements in the DOM. */
+.image-stack .stack-photo.pos-1 { top: 0; left: 2%; transform: rotate(-7deg); z-index: 4; }
+.image-stack .stack-photo.pos-2 { top: 16%; left: 14%; transform: rotate(5deg); z-index: 3; }
+.image-stack .stack-photo.pos-3 { top: 34%; left: 4%; transform: rotate(-3deg); z-index: 2; }
+.image-stack .stack-photo.pos-4 { top: 46%; left: 10%; transform: rotate(7deg); z-index: 1; }
+
+.image-stack:hover .stack-photo.pos-1 { transform: rotate(-10deg) translate(-6px, -6px); }
+.image-stack:hover .stack-photo.pos-2 { transform: rotate(8deg) translate(6px, -4px); }
+.image-stack:hover .stack-photo.pos-3 { transform: rotate(-5deg) translate(-4px, 6px); }
+.image-stack:hover .stack-photo.pos-4 { transform: rotate(9deg) translate(5px, 5px); }
+
+/* Top-right timer/shuffle indicator */
+
+.stack-indicator {
+  position: absolute;
+  top: -12px;
+  right: 6%;
+  width: 34px;
+  height: 34px;
+  z-index: 5;
+  padding: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.stack-indicator:hover {
+  border-color: var(--border-hover);
+  transform: scale(1.08);
+}
+
+.stack-indicator svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.stack-indicator .indicator-track {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 3;
+}
+
+.stack-indicator .indicator-progress {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: var(--circumference, 87.9);
+  stroke-dashoffset: var(--circumference, 87.9);
+}
+
+.stack-indicator .indicator-progress.running {
+  animation: indicator-fill var(--stack-cycle-duration, 8s) linear infinite;
+}
+
+@keyframes indicator-fill {
+  from { stroke-dashoffset: var(--circumference, 87.9); }
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-stack .stack-photo {
+    transition: none;
+  }
+  .stack-indicator .indicator-progress.running {
+    animation: none;
+  }
+}
+
+/* Center column — explanation text */
+
+.project-copy .meta-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-bottom: 20px;
+}
+
+.project-copy .meta-inline .meta-item .label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.project-copy .meta-inline .meta-item .value {
+  font-size: 0.95rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.project-copy .lead-text {
+  font-size: 1.02rem;
+  color: var(--text-dim);
+}
+
+/* Shown instead of the lead paragraph when a project has no write-up yet
+   (project.body left empty in js/data.js) — a plain, honest placeholder
+   rather than generic auto-filled copy sitting on the live site. */
+.project-copy .wip-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.02rem;
+  color: var(--text-dim);
+  background: var(--bg-elevated);
+  border: 1px dashed var(--border-hover);
+  border-radius: var(--radius);
+  padding: 12px 18px;
+}
+
+.project-copy .wip-icon {
+  font-size: 1.2rem;
+}
+
+.project-copy h3 {
+  font-size: 1.05rem;
+  margin-top: 1.6em;
+}
+
+.key-points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.key-points li {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--text);
+  font-size: 0.94rem;
+}
+
+/* Right column — color-coded tags + client/project logo */
+
+.project-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.project-side .tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-side .tag {
+  font-size: 0.8rem;
+  padding: 6px 12px;
+}
+
+.project-logo-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+}
+
+.project-logo-card img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.project-logo-card.empty {
+  color: var(--text-faint);
+  font-size: 0.85rem;
+  text-align: center;
+  border-style: dashed;
+  border-color: var(--border-hover);
+}
+
+/* Static overlapping logo fan — for projects with more than one client/
+   sponsor logo (e.g. Block Wars + Twitch Rivals). Same overlapping-card
+   look as the photo stack, but fixed in place: no rotation cycle, no
+   indicator, no hover motion. */
+
+.logo-stack {
+  position: relative;
+  aspect-ratio: 1 / 1;
+}
+
+.logo-chip {
+  position: absolute;
+  width: 62%;
+  aspect-ratio: 1 / 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-chip img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.logo-stack .logo-chip:nth-child(1) { top: 0; left: 0; transform: rotate(-6deg); z-index: 3; }
+.logo-stack .logo-chip:nth-child(2) { top: 26%; left: 26%; transform: rotate(7deg); z-index: 2; }
+.logo-stack .logo-chip:nth-child(3) { top: 40%; left: 8%; transform: rotate(-3deg); z-index: 1; }
+
+.side-block .label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.collaborator-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* A full pill (border-radius: 999px) only reads well as a single line —
+   with a note and 1-3 links, most of these wrap to 2-3 lines, where a pill
+   radius looks broken (odd bulging corners top/bottom). A small rectangular
+   radius, name and links stacked in their own rows with a divider between,
+   holds up at any length. */
+.collaborator-chip {
+  font-size: 0.85rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: 100%;
+}
+
+.collaborator-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.collaborator-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+
+.collaborator-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  width: 100%;
+}
+
+.collaborator-links a {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.78rem;
+}
+
+.collaborator-links a:hover {
+  text-decoration: underline;
+}
+
+.project-body {
+  padding: 24px 0 80px;
+}
+
+.project-body h2 {
+  font-size: 1.3rem;
+  margin-top: 2.2em;
+}
+
+.project-body h2:first-child {
+  margin-top: 0;
+}
+
+.project-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* .project-side already spaces its children with its own gap — this used
+   to sit at the end of the copy column instead, where the margin-top above
+   was needed; now that it's a direct child of .project-side, that would
+   just double up on top of the gap. */
+.project-side .project-links {
+  margin-top: 0;
+}
+
+.project-not-found {
+  padding: 100px 0;
+  text-align: center;
+}
+
+/* ---------- Project detail carousel ---------- */
+/* Every project renders as its own full-page slide (hero + feature section)
+   inside a horizontally-scrolling, scroll-snapped track. Slides are narrower
+   than the viewport so the next/previous project peeks in at the screen
+   edges, even at rest — scroll-snap gives native touch/trackpad swipe for
+   free; initProjectDetailCarousel (js/main.js) only drives the two fixed
+   arrow buttons and keeps the URL/title/dimming in sync with whichever
+   slide is centered. */
+
+.project-carousel {
+  position: relative;
+}
+
+.project-carousel-viewport {
+  /* Spans the full width so peeking neighbors reach all the way to the
+     screen edges, not just to some capped inner boundary. Dead-margin
+     invisibility on ultra-wide screens is instead prevented by .project-slide's
+     own width formula below (capped at content max-width + peek), which
+     holds regardless of how wide this viewport itself is. */
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.project-carousel-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.project-carousel-track {
+  display: flex;
+  align-items: flex-start;
+  /* Breathing room between slides, so a peeking neighbor doesn't sit flush
+     against the active project. */
+  gap: var(--carousel-gap, 64px);
+}
+
+.project-slide {
+  flex: 0 0 auto;
+  /* Capped at the content max-width plus peek on both sides too, so the
+     peek band always starts right where the neighboring slide's own
+     content begins — never sitting inside its dead outer margin. */
+  width: min(
+    calc(100% - 2 * var(--carousel-peek, 96px)),
+    calc(var(--max-width) + 2 * var(--carousel-peek, 96px))
+  );
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+.project-slide:not(.is-active) {
+  opacity: 0.28;
+  filter: saturate(0.6);
+  pointer-events: none;
+}
+
+.carousel-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.carousel-nav svg {
+  width: 22px;
+  height: 22px;
+}
+
+.carousel-nav:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--bg-elevated);
+  transform: translateY(-50%) scale(1.06);
+}
+
+.carousel-nav.prev {
+  left: clamp(28px, 6vw, 150px);
+}
+
+.carousel-nav.next {
+  right: clamp(28px, 6vw, 150px);
+}
+
+@media (max-width: 720px) {
+  :root {
+    --carousel-peek: 34px;
+    --carousel-gap: 20px;
+  }
+
+  .carousel-nav {
+    width: 38px;
+    height: 38px;
+  }
+
+  .carousel-nav svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .carousel-nav.prev {
+    left: 6px;
+  }
+
+  .carousel-nav.next {
+    right: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-carousel-viewport {
+    scroll-behavior: auto;
+  }
+
+  .project-slide {
+    transition: none;
+  }
+}
+
+/* ---------- CV page ---------- */
+
+.cv-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 24px;
+  padding: 22px 0;
+  border-top: 1px solid var(--border);
+}
+
+.timeline-item:first-child {
+  border-top: none;
+}
+
+.timeline-date {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.timeline-role {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.timeline-org {
+  color: var(--text-faint);
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.timeline-item p {
+  margin: 0;
+  font-size: 0.94rem;
+}
+
+.timeline-bullets {
+  margin: 0;
+  padding-left: 1.1em;
+  display: grid;
+  gap: 6px;
+}
+
+.timeline-bullets li {
+  font-size: 0.94rem;
+  color: var(--text-dim);
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-pill {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+/* ---------- Contact page ---------- */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.contact-method {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+  border-top: 1px solid var(--border);
+}
+
+.contact-method:first-child {
+  border-top: none;
+}
+
+.contact-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+}
+
+.contact-method a {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.contact-method a:hover {
+  color: var(--accent);
+}
+
+.form-field {
+  margin-bottom: 18px;
+}
+
+.form-field label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.form-note {
+  font-size: 0.82rem;
+  color: var(--text-faint);
+  margin-top: 10px;
+}
+
+/* ---------- Lightbox (click-to-enlarge preview) ---------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px;
+  background: rgba(5, 6, 9, 0.88);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease;
+  cursor: zoom-out;
+}
+
+.lightbox.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  cursor: default;
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.lightbox-close svg {
+  width: 20px;
+  height: 20px;
+}
+
+.lightbox-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: scale(1.06);
+}
+
+.lightbox-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.lightbox-nav svg {
+  width: 24px;
+  height: 24px;
+}
+
+.lightbox-nav:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-50%) scale(1.06);
+}
+
+.lightbox-nav.is-hidden {
+  display: none;
+}
+
+.lightbox-prev {
+  left: 20px;
+}
+
+.lightbox-next {
+  right: 20px;
+}
+
+@media (max-width: 720px) {
+  .lightbox {
+    padding: 24px;
+  }
+
+  .lightbox-nav {
+    width: 42px;
+    height: 42px;
+  }
+
+  .lightbox-nav svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .lightbox-prev {
+    left: 8px;
+  }
+
+  .lightbox-next {
+    right: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox {
+    transition: none;
+  }
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
+  margin-top: 40px;
+}
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links a {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+}
+
+.footer-note {
+  color: var(--text-faint);
+  font-size: 0.85rem;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 980px) {
+  .project-feature-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .image-stack {
+    max-width: 440px;
+    margin: 0 auto 12px;
+  }
+
+  .project-side {
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .project-logo-card,
+  .logo-stack {
+    width: 140px;
+    aspect-ratio: 1 / 1;
+  }
+}
+
+@media (max-width: 860px) {
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 720px) {
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+    padding: 12px;
+    gap: 4px;
+    display: none;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    padding: 12px 14px;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+}

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project — Tom Rowland</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav-logo">Tom<span>.</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="project-main">
+    <!-- Filled in by script below, or shows a not-found state -->
+  </main>
+
+  <footer class="site-footer container">
+    <div class="footer-row">
+      <span class="footer-note">© <span id="year"></span> Tom Rowland. Built from scratch.</span>
+      <ul class="footer-links">
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="mailto:tpfrowland@gmail.com">Email</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("slug");
+    const project = PROJECTS.find((p) => p.slug === slug);
+
+    const main = document.getElementById("project-main");
+
+    if (!project) {
+      main.innerHTML = `
+        <div class="container project-not-found">
+          <h1>Project not found</h1>
+          <p>That project doesn't exist, or the link is out of date.</p>
+          <a href="projects.html" class="btn btn-primary">Back to Projects</a>
+        </div>
+      `;
+    } else {
+      document.title = `${project.title} — Tom Rowland`;
+
+      // Every project gets rendered as its own slide (see renderProjectSlide
+      // below), all sitting in one horizontally-scrolling, scroll-snapped
+      // track — that's what gives native touch/trackpad swipe for free and
+      // lets neighboring projects peek in at the screen edges. With 2+
+      // projects, a duplicate of the last project is prepended and a
+      // duplicate of the first is appended — so the first project always has
+      // something to peek at on its left (the "last" clone) and the last
+      // always has something on its right (the "first" clone), looping the
+      // carousel visually at both ends. initProjectDetailCarousel silently
+      // snaps from a clone to its real counterpart once it's centered, so
+      // there's always another clone ready for the next step.
+      const cloneSlides =
+        PROJECTS.length >= 2
+          ? {
+              before: renderProjectSlide(PROJECTS[PROJECTS.length - 1], { isClone: true }),
+              after: renderProjectSlide(PROJECTS[0], { isClone: true }),
+            }
+          : { before: "", after: "" };
+
+      main.innerHTML = `
+        <div class="project-carousel">
+          <button type="button" class="carousel-nav prev" aria-label="Previous project">
+            <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="project-carousel-viewport">
+            <div class="project-carousel-track">
+              ${cloneSlides.before}
+              ${PROJECTS.map((p) => renderProjectSlide(p)).join("")}
+              ${cloneSlides.after}
+            </div>
+          </div>
+          <button type="button" class="carousel-nav next" aria-label="Next project">
+            <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      `;
+
+      initProjectDetailCarousel(main, PROJECTS, project.slug);
+    }
+
+    // Builds one slide's full hero+feature markup for a given project —
+    // identical structure to the single-project markup this page used to
+    // render directly, just parameterized so every project can get its own
+    // permanent slide in the carousel track. isClone marks the two extra
+    // duplicate slides (see cloneSlides above) that loop the carousel
+    // visually — inert removes them from focus/tab order and the
+    // accessibility tree, since they're the same content as a real slide
+    // elsewhere in the track.
+    function renderProjectSlide(project, { isClone = false } = {}) {
+      const tagsHtml = project.tags.map(tagPill).join("");
+      const collaboratorsHtml = project.collaborators
+        .map((c) => {
+          const links = (c.links || [])
+            .map((l) => `<a href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`)
+            .join("");
+          const avatar = c.avatar
+            ? `<img class="collaborator-avatar" src="${c.avatar}" alt="" loading="lazy">`
+            : "";
+          return `<span class="collaborator-chip">
+            <span class="collaborator-header">
+              ${avatar}
+              <span class="collaborator-name">${c.name}${c.note ? ` — ${c.note}` : ""}</span>
+            </span>
+            ${links ? `<span class="collaborator-links">${links}</span>` : ""}
+          </span>`;
+        })
+        .join("");
+      const keyPointsHtml = project.keyPoints.map((k) => `<li>${k}</li>`).join("");
+      const linksHtml = (project.links || [])
+        .map((l) => `<a href="${l.url}" class="btn btn-ghost" target="_blank" rel="noopener">${l.label}</a>`)
+        .join("");
+
+      // No write-up yet (project.body left empty in js/data.js) — an "I'm
+      // working on it" note instead of leaving a blank paragraph or, worse,
+      // generic placeholder copy sitting on the live site.
+      const bodyHtml = project.body
+        ? `<p class="lead-text">${project.body}</p>`
+        : `<div class="wip-note"><span class="wip-icon" aria-hidden="true">🔨</span> I'm working on it — full write-up coming soon.</div>`;
+
+      // Overlapping photo stack (left column) — shows up to 4 photos at once,
+      // in the order given, falls back to a placeholder card when no images
+      // have been added yet. With 2+ photos, a small timer indicator
+      // (top-right) auto-rotates which one sits at the front, and can be
+      // clicked to shuffle on demand — the first image (e.g. an early
+      // sketch) starts front-most, with the rest cycling forward behind it.
+      // A project with more than 4 images just keeps cycling further ones
+      // in as it goes (see initImageStack in js/main.js).
+      const images = (project.images || []).slice(0, 4);
+      const posClasses = ["pos-1", "pos-2", "pos-3", "pos-4"];
+      const imagesHtml = images.length
+        ? images
+            .map(
+              (src, i) =>
+                `<img class="stack-photo ${posClasses[i]}" src="${src}" alt="${project.title}">`
+            )
+            .join("")
+        : `<div class="stack-photo pos-1 empty">Add project<br>images</div>`;
+      const indicatorHtml =
+        images.length >= 2
+          ? `<button type="button" class="stack-indicator" aria-label="Show next photo" title="Next photo">
+               <svg viewBox="0 0 36 36">
+                 <circle class="indicator-track" cx="18" cy="18" r="14"></circle>
+                 <circle class="indicator-progress" cx="18" cy="18" r="14"></circle>
+               </svg>
+             </button>`
+          : "";
+
+      // Client/sponsor logo(s) (right column) — one logo shows in a plain
+      // square card; 2+ (e.g. a client plus a sponsor) show as a small
+      // static overlapping fan, same look as the photo stack but fixed in
+      // place (no rotation, no timer).
+      const logos = (project.logos || []).slice(0, 3);
+      const logoHtml =
+        logos.length >= 2
+          ? `<div class="logo-stack">${logos
+              .map((src) => `<div class="logo-chip"><img src="${src}" alt="${project.title} logo"></div>`)
+              .join("")}</div>`
+          : logos.length === 1
+            ? `<div class="project-logo-card"><img src="${logos[0]}" alt="${project.title} logo"></div>`
+            : `<div class="project-logo-card empty">Add client /<br>project logo</div>`;
+
+      return `
+        <div class="project-slide" data-slug="${project.slug}" ${isClone ? 'data-clone="true" inert' : ""}>
+          <section class="project-hero container">
+            <div class="breadcrumb"><a href="projects.html">Projects</a> / ${project.title}</div>
+            <h1>${project.title}</h1>
+            <p class="hero-lead">${project.summary}</p>
+          </section>
+
+          <section class="project-feature container">
+            <div class="project-feature-grid">
+
+              <div class="image-stack" data-images='${JSON.stringify(project.images || [])}'>
+                ${imagesHtml}
+                ${indicatorHtml}
+              </div>
+
+              <div class="project-copy">
+                <div class="meta-inline">
+                  <div class="meta-item">
+                    <div class="label">Role</div>
+                    <div class="value">${project.role}${project.company ? ` · ${project.company}` : ""}</div>
+                  </div>
+                  <div class="meta-item">
+                    <div class="label">Timeline</div>
+                    <div class="value">${project.year}</div>
+                  </div>
+                </div>
+
+                ${bodyHtml}
+
+                <h3>Key points</h3>
+                <ul class="key-points">${keyPointsHtml}</ul>
+              </div>
+
+              <div class="project-side">
+                <div class="tag-row">${tagsHtml}</div>
+
+                ${logoHtml}
+
+                ${linksHtml ? `<div class="project-links">${linksHtml}</div>` : ""}
+
+                ${
+                  project.collaborators.length
+                    ? `<div class="side-block">
+                         <div class="label">Worked with</div>
+                         <div class="collaborator-list">${collaboratorsHtml}</div>
+                       </div>`
+                    : ""
+                }
+              </div>
+
+            </div>
+          </section>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

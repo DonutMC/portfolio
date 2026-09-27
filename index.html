@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tom Rowland — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav-logo">Tom<span>.</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero-banner-strip">
+      <img src="" id="showcase-banner-img" class="hero-banner-strip-img" alt="An overview of past work: level design, game design, icons and UI, media production, 3D models, and web design.">
+    </section>
+
+    <section class="section container hero-identity-row">
+      <div class="hero-split-identity">
+        <div class="hero-photo" id="hero-photo"></div>
+        <div class="hero-identity-text">
+          <span class="hero-eyebrow">Available for work</span>
+          <h1 id="hero-name"></h1>
+          <p class="hero-lead" id="hero-lead"></p>
+        </div>
+      </div>
+      <div class="hero-split-projects">
+        <div class="section-head hero-projects-head">
+          <div class="hero-projects-head-box">
+            <span class="section-kicker">Portfolio</span>
+            <h2>Projects</h2>
+          </div>
+          <a href="projects.html" class="btn btn-ghost">All projects →</a>
+        </div>
+        <div class="hero-projects-box">
+          <button type="button" class="ring-nav-btn prev" aria-label="Previous project">
+            <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="project-spotlight" id="project-spotlight"></div>
+          <button type="button" class="ring-nav-btn next" aria-label="Next project">
+            <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Areas of experience</span>
+          <h2>What I bring to a project</h2>
+        </div>
+      </div>
+      <div class="grid-3" id="skill-areas"></div>
+    </section>
+
+    <section class="section container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Résumé</span>
+          <h2>CV</h2>
+        </div>
+        <a href="cv.html" class="btn btn-ghost">Full CV →</a>
+      </div>
+      <p id="home-cv-bio" style="max-width: 68ch;"></p>
+      <div class="timeline" id="home-experience-timeline" style="margin-top: 28px;"></div>
+      <div class="skill-tags" id="home-skill-tags" style="margin-top: 24px;"></div>
+      <div class="cv-actions" style="margin-top: 28px;">
+        <a href="#" id="home-cv-download" class="btn btn-primary" target="_blank" rel="noopener">Download PDF</a>
+        <a href="cv.html" class="btn btn-ghost">View full CV</a>
+      </div>
+    </section>
+
+    <section class="section container" id="home-contact">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Get in touch</span>
+          <h2>Contact</h2>
+        </div>
+      </div>
+      <div class="contact-grid">
+        <div>
+          <div class="contact-method">
+            <div class="contact-icon">✉</div>
+            <div>
+              <div class="footer-note" style="margin-bottom:2px;">Email</div>
+              <a href="mailto:tpfrowland@gmail.com" id="home-contact-email">tpfrowland@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="contact-icon">🐦</div>
+            <div>
+              <div class="footer-note" style="margin-bottom:2px;">Twitter</div>
+              <a href="https://twitter.com/Dynamitdoughnut" id="home-contact-twitter" target="_blank" rel="noopener">@Dynamitdoughnut</a>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="contact-icon">💬</div>
+            <div>
+              <div class="footer-note" style="margin-bottom:2px;">Discord</div>
+              <span id="home-contact-discord">donut_tom</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <form name="contact" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="contact">
+            <div class="form-field">
+              <label for="home-name">Name</label>
+              <input type="text" id="home-name" name="name" required>
+            </div>
+            <div class="form-field">
+              <label for="home-email">Email</label>
+              <input type="email" id="home-email" name="email" required>
+            </div>
+            <div class="form-field">
+              <label for="home-subject">Subject</label>
+              <input type="text" id="home-subject" name="subject">
+            </div>
+            <div class="form-field">
+              <label for="home-message">Message</label>
+              <textarea id="home-message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send message</button>
+            <p class="form-note">
+              This form is wired for Netlify Forms. See the comment in contact.html
+              if you're deploying to Vercel instead.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <div class="footer-row">
+      <span class="footer-note">© <span id="year"></span> Tom Rowland. Built from scratch.</span>
+      <ul class="footer-links">
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="mailto:tpfrowland@gmail.com">Email</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("hero-name").textContent = SITE.name;
+    document.getElementById("hero-lead").textContent = SITE.tagline;
+    document.getElementById("showcase-banner-img").src = SITE.showcaseBanner;
+
+    // Profile photo, with an initials badge fallback until SITE.photo is set.
+    const heroPhoto = document.getElementById("hero-photo");
+    if (SITE.photo) {
+      heroPhoto.innerHTML = `<img src="${SITE.photo}" alt="${SITE.name}">`;
+    } else {
+      const initials = SITE.name.split(/\s+/).map((w) => w[0]).join("").toUpperCase();
+      heroPhoto.textContent = initials;
+    }
+
+    const areasWrap = document.getElementById("skill-areas");
+    SKILL_AREAS.forEach((area) => {
+      const card = el("div", "skill-card");
+      card.appendChild(el("h3", null, area.title));
+      card.appendChild(el("p", null, area.description));
+      areasWrap.appendChild(card);
+    });
+
+    initProjectCarousel(document.getElementById("project-spotlight"), PROJECTS);
+
+    // Condensed CV section — same data/render logic as cv.html, just without
+    // the education/languages timelines so the home page stays a summary,
+    // not a full duplicate of the CV page.
+    document.getElementById("home-cv-bio").textContent = SITE.bio || SITE.tagline;
+    document.getElementById("home-cv-download").href = SITE.cvFile;
+    renderTimeline("home-experience-timeline", EXPERIENCE);
+    const homeSkillWrap = document.getElementById("home-skill-tags");
+    CV_SKILLS.forEach((s) => homeSkillWrap.appendChild(el("span", "skill-pill", s)));
+
+    // Condensed contact section — mirrors contact.html's methods + form.
+    document.getElementById("home-contact-email").textContent = SITE.email;
+    document.getElementById("home-contact-email").href = `mailto:${SITE.email}`;
+    document.getElementById("home-contact-discord").textContent = SITE.discord;
+  </script>
+</body>
+</html>

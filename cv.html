@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV — Tom Rowland</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav-logo">Tom<span>.</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container" style="padding-bottom: 24px;">
+      <span class="hero-eyebrow">Résumé</span>
+      <h1>CV</h1>
+      <p class="hero-lead" id="cv-lead"></p>
+      <div class="cv-actions">
+        <a href="#" id="cv-download" class="btn btn-primary" target="_blank" rel="noopener">Download PDF</a>
+        <a href="contact.html" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Profile</span>
+          <h2>About</h2>
+        </div>
+      </div>
+      <p id="cv-bio" style="max-width: 68ch;"></p>
+    </section>
+
+    <section class="section container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Experience</span>
+          <h2>Work history</h2>
+        </div>
+      </div>
+      <div class="timeline" id="experience-timeline"></div>
+    </section>
+
+    <section class="section container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Education</span>
+          <h2>Education &amp; training</h2>
+        </div>
+      </div>
+      <div class="timeline" id="education-timeline"></div>
+    </section>
+
+    <section class="section container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Skills</span>
+          <h2>Core skills</h2>
+        </div>
+      </div>
+      <div class="skill-tags" id="skill-tags"></div>
+    </section>
+
+    <section class="section container">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">Languages</span>
+          <h2>Languages</h2>
+        </div>
+      </div>
+      <div class="skill-tags" id="language-tags"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <div class="footer-row">
+      <span class="footer-note">© <span id="year"></span> Tom Rowland. Built from scratch.</span>
+      <ul class="footer-links">
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="mailto:tpfrowland@gmail.com">Email</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("cv-lead").textContent =
+      `${SITE.name} — ${SITE.role}. ${SITE.tagline}`;
+    document.getElementById("cv-download").href = SITE.cvFile;
+    document.getElementById("cv-bio").textContent = SITE.bio || SITE.tagline;
+
+    renderTimeline("experience-timeline", EXPERIENCE);
+    renderTimeline("education-timeline", EDUCATION);
+
+    const skillWrap = document.getElementById("skill-tags");
+    CV_SKILLS.forEach((s) => skillWrap.appendChild(el("span", "skill-pill", s)));
+
+    const languageWrap = document.getElementById("language-tags");
+    LANGUAGES.forEach((l) =>
+      languageWrap.appendChild(el("span", "skill-pill", `${l.name} — ${l.level}`))
+    );
+  </script>
+</body>
+</html>

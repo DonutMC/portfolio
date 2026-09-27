@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Tom Rowland</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav-logo">Tom<span>.</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container" style="padding-bottom: 32px;">
+      <span class="hero-eyebrow">Portfolio</span>
+      <h1>Projects</h1>
+      <p class="hero-lead">
+        A collection of commissioned and personal projects, with the people involved
+        and what each one demonstrates.
+      </p>
+    </section>
+
+    <section class="container" style="padding-bottom: 56px;">
+      <div class="filter-bar" id="filter-bar"></div>
+      <div class="project-grid" id="project-grid"></div>
+    </section>
+
+    <section class="section container" style="padding-bottom: 80px;">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">More work</span>
+          <h2>Additional builds</h2>
+        </div>
+      </div>
+      <p style="max-width: 60ch; margin-top: -16px;">
+        Standalone builds and studies that don't belong to one named project above —
+        shown here rather than padded into a project write-up.
+      </p>
+      <div class="misc-grid" id="misc-grid"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <div class="footer-row">
+      <span class="footer-note">© <span id="year"></span> Tom Rowland. Built from scratch.</span>
+      <ul class="footer-links">
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="mailto:tpfrowland@gmail.com">Email</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const grid = document.getElementById("project-grid");
+    const filterBar = document.getElementById("filter-bar");
+
+    const allTags = ["All", ...new Set(PROJECTS.flatMap((p) => p.tags))];
+
+    function render(activeTag) {
+      grid.innerHTML = "";
+      const list =
+        activeTag === "All" ? PROJECTS : PROJECTS.filter((p) => p.tags.includes(activeTag));
+      list.forEach((p) => grid.appendChild(projectCard(p)));
+    }
+
+    allTags.forEach((tag) => {
+      const btn = el("button", "filter-btn", tag);
+      if (tag === "All") btn.classList.add("active");
+      btn.addEventListener("click", () => {
+        filterBar.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        render(tag);
+      });
+      filterBar.appendChild(btn);
+    });
+
+    render("All");
+
+    const miscGrid = document.getElementById("misc-grid");
+    MISC_BUILDS.forEach((item) => {
+      const tile = el(
+        "figure",
+        "misc-tile",
+        `<img src="${item.image}" alt="${item.caption}" loading="lazy">
+         <figcaption>${item.caption}</figcaption>`
+      );
+      miscGrid.appendChild(tile);
+    });
+  </script>
+</body>
+</html>
